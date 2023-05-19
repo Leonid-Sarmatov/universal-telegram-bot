@@ -18,7 +18,7 @@ public class Automate {
         automate.put("/start", (update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
 
             // Объект текстового сообщения
             SendMessage msg = new SendMessage();
@@ -30,14 +30,16 @@ public class Automate {
                     .oneColumnKeyboard(new String[] {"Пицца!", "Чипсы"}, new String[] {"Call1", "Call2"}));
 
             // Добавляем в список сообщений текстовое сообщение
-            list.add(msg);
+            Answer answer = new Answer();
+            answer.setSendMessage(msg);
+            list.add(answer);
             return list;
         });
 
         automate.put("Call1", ((update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
 
             // Объект текстового сообщения
             SendMessage msg = new SendMessage();
@@ -48,14 +50,16 @@ public class Automate {
                     .oneColumnKeyboard(new String[] {"Четыре сыра", "Пеперони", "Жульенчик"}));
 
             // Добавляем в список сообщений текстовое сообщение
-            list.add(msg);
+            Answer answer = new Answer();
+            answer.setSendMessage(msg);
+            list.add(answer);
             return list;
         }));
 
         automate.put("Call2", ((update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
             SendPhoto sendPhoto = new SendPhoto();
             SendMessage sendMessage = new SendMessage();
 
@@ -69,50 +73,59 @@ public class Automate {
             sendPhoto.setCaption("Вот ваши чипсы!");
 
             // Добавляем в список сообщений текстовое сообщение и сообщение с изображением
-            list.add(sendPhoto);
-            list.add(sendMessage);
+            Answer answer = new Answer();
+            answer.setSendMessage(sendMessage);
+            answer.setSendPhoto(sendPhoto);
+
+            list.add(answer);
             return list;
         }));
 
         automate.put("Четыре сыра", ((update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
             SendMessage sendMessage = new SendMessage();
 
             // Текстовое сообщение
             sendMessage.setChatId(chatId);
             sendMessage.setText("Получите пиццу четыре сыра");
 
-            list.add(sendMessage);
+            Answer answer = new Answer();
+            answer.setSendMessage(sendMessage);
+            list.add(answer);
             return list;
         }));
 
         automate.put("Пеперони", ((update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
             SendMessage sendMessage = new SendMessage();
 
             // Текстовое сообщение
             sendMessage.setChatId(chatId);
             sendMessage.setText("Получите пиццу пеперони");
 
-            list.add(sendMessage);
+            Answer answer = new Answer();
+            answer.setSendMessage(sendMessage);
+            list.add(answer);
             return list;
         }));
 
         automate.put("Жульенчик", ((update, chatId) -> {
 
             // Список с объектами сообщений
-            ArrayList<Object> list = new ArrayList<>();
+            ArrayList<Answer> list = new ArrayList<>();
             SendMessage sendMessage = new SendMessage();
 
             // Текстовое сообщение
             sendMessage.setChatId(chatId);
             sendMessage.setText("Получите пиццу Жульенчик");
 
-            list.add(sendMessage);
+            Answer answer = new Answer();
+            answer.setSendMessage(sendMessage);
+            list.add(answer);
             return list;
         }));
 

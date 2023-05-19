@@ -1,13 +1,11 @@
 package com.example.bot;
 
+import com.example.bot.Automate.Answer;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import com.example.bot.Receivers.ReceiverAllMessages;
-
 import java.util.List;
 
 @Component
@@ -30,25 +28,27 @@ public class Bot extends TelegramLongPollingBot {
             try {
 
                 // Отправляем апдейт в ресивер и получаем список с сообщениями
-                List<Object> list = receiverAllMessages.receiveAllMessages(update);
+                List<Answer> list = receiverAllMessages.receiveAllMessages(update);
 
                 // Обходим список с сообщениями
-                for (int i = 0; i < list.size(); i++) {
-                    String s = list.get(i).getClass().toString();
-
-                    // Если объект это текстовое сообщение, то делаем соответствующие приведение типа
-                    // и отправляем сообщение
-                    if (s.equals("class org.telegram.telegrambots.meta.api.methods.send.SendMessage")) {
-                        SendMessage m = (SendMessage) list.get(i);
-                        execute(m);
-                    }
-
-                    // Если объект это сообщение с фото, то делаем соответствующие приведение типа
-                    // и отправляем сообщение
-                    if (s.equals("class org.telegram.telegrambots.meta.api.methods.send.SendPhoto")) {
-                        SendPhoto m = (SendPhoto) list.get(i);
-                        execute(m);
-                    }
+                for (Answer answer : list) {
+                    if (answer.getSendMessage() != null) {execute(answer.getSendMessage()); }
+                    if (answer.getSendPhoto() != null) { execute(answer.getSendPhoto()); }
+                    if (answer.getSendDocument() != null) { execute(answer.getSendDocument()); }
+                    if (answer.getSendVideo() != null) { execute(answer.getSendVideo()); }
+                    if (answer.getSendVideoNote() != null) { execute(answer.getSendVideoNote()); }
+                    if (answer.getSendSticker() != null) { execute(answer.getSendSticker()); }
+                    if (answer.getSendAudio() != null) { execute(answer.getSendAudio()); }
+                    if (answer.getSendVoice() != null) { execute(answer.getSendVoice()); }
+                    if (answer.getSendMediaGroup() != null) { execute(answer.getSendMediaGroup()); }
+                    if (answer.getSetChatPhoto() != null) { execute(answer.getSetChatPhoto()); }
+                    if (answer.getAddStickerToSet() != null) { execute(answer.getAddStickerToSet()); }
+                    if (answer.getSetStickerSetThumb() != null) { execute(answer.getSetStickerSetThumb()); }
+                    if (answer.getCreateNewStickerSet() != null) { execute(answer.getCreateNewStickerSet()); }
+                    if (answer.getUploadStickerFile() != null) { execute(answer.getUploadStickerFile()); }
+                    if (answer.getEditMessageMedia() != null) { execute(answer.getEditMessageMedia()); }
+                    if (answer.getSendAnimation() != null) { execute(answer.getSendAnimation()); }
+                    if (answer.getBotApiMethod() != null) { execute(answer.getBotApiMethod()); }
                 }
 
             } catch (Throwable e) {

@@ -1,5 +1,6 @@
 package com.example.bot.Receivers;
 
+import com.example.bot.Automate.Answer;
 import com.example.bot.Automate.Automate;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReceiverAllMessages {
-    public ArrayList<Object> receiveAllMessages(Update update) {
-        ArrayList<Object> messagesList = new ArrayList<>();
+    public ArrayList<Answer> receiveAllMessages(Update update) {
+        ArrayList<Answer> messagesList = new ArrayList<>();
 
         HashMap<String, SendMessageInterface> automate = Automate.createAutomate();
 
